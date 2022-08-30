@@ -1,0 +1,3 @@
+Fixed time step:
+    Joseph Mansfield, C++Patterns
+    https://cpppatterns.com/patterns/fixed-time-step.html

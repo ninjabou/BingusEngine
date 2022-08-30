@@ -10,5 +10,5 @@ namespace bingusengine {
     class AudioManager;
 
     typedef std::string string;
-    typedef std::vector vector;
+    // typedef std::vector vector;
 }

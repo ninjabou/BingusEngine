@@ -2,9 +2,11 @@
 #include <Engine.h>
 
 int main( int argc, const char* argv[] ) {
+    using namespace bingusengine;
+
     std::cout << "Hello, World!\n";
 
-    bingusengine::Engine engine;
+    Engine engine;
     engine.Start();
 
     return 0;
