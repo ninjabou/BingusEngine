@@ -24,4 +24,8 @@ namespace bingusengine {
         glfwMakeContextCurrent( window );
         glfwSwapInterval(1);
     }
+
+    void GraphicsManager::Shutdown(){
+        glfwTerminate();
+    }
 }
