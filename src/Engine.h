@@ -1,31 +1,28 @@
-class Engine {
-    public:
-        // GraphicsManager graphics
-        // InputManager input
-    
-    private:
-        // def Startup():
-        //     graphics.Startup()
-        //     input.Startup()
+#include "GraphicsManager.h"
+
+namespace bingusengine {
+    class Engine {
+        public:
+            GraphicsManager graphics;
+            // InputManager input
         
-        // def Shutdown():
-        //     input.Shutdown()
-        //     graphics.Shutdown()
-    
-    public:
-        // def Start( GameParameters, SetupCallback, UpdateCallback ):
-        //     self.Startup()
-            
-        //     SetupCallback()
-            
-        //     while( True ):
-        //         input.Update()
+            void Start( /*GameParameters, SetupCallback, UpdateCallback*/ ){
+                graphics.Start();
+            }
+
+            void Shutdown(){
+                graphics.Shutdown();
+            }
+
+            void GameLoop(){
+                // while( True ):
+                // input.Update()
                 
-        //         UpdateCallback()
+                // UpdateCallback()
                 
-        //         graphics.Draw()
+                // graphics.Draw()
                 
-        //         // Manage timestep
-            
-        //     self.Shutdown()
+                // // Manage timestep
+            }
+    };
 }
