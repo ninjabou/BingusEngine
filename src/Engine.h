@@ -1,4 +1,5 @@
 #include "GraphicsManager.h"
+#include "InputManager.h"
 #include "Types.h"
 #include <chrono>
 #include <thread>
@@ -8,29 +9,31 @@ using namespace std::literals::chrono_literals;
 namespace bingusengine {
     class Engine {
         public:
-            GraphicsManager* graphics;
-            // InputManager input
-
-            Engine(){
-                graphics = new GraphicsManager(1200, 800);
-            }
+            GraphicsManager graphics;
+            InputManager input;
         
-            void Start( /*GameParameters, SetupCallback, UpdateCallback*/ ){
-                graphics->Start();
-                this->GameLoop();
+            void Init( /*GameParameters, SetupCallback, UpdateCallback*/ ){
+                graphics.Init(this, 1200, 800);
+                input.Init(this);
+                // this->GameLoop();
             }
 
             void Shutdown(){
-                graphics->Shutdown();
+                graphics.Shutdown();
             }
 
-            void GameLoop(){
+            void GameLoop(const UpdateCallback& callback){
                 while(true){
-                    // input.Update()
+                    input.Update();
                     
-                    // UpdateCallback()
+                    callback();
                     
-                    graphics->Draw();
+                    graphics.Draw();
+
+                    if(graphics.ShouldQuit()){
+                        this->Shutdown();
+                        return;
+                    }
                     
                     // Manage timestep
                     // TEMP FIXED timestep of 1/10 seconds.

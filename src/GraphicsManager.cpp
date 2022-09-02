@@ -1,30 +1,37 @@
 #define GLFW_INCLUDE_NONE
 #include "GraphicsManager.h"
 #include "GLFW/glfw3.h"
+#include "Engine.h"
 #include <iostream>
 
 namespace bingusengine {
-    GraphicsManager::GraphicsManager(int ww, int wh){
-        this->window_width = ww;
-        this->window_height = wh;
-    }
+    void GraphicsManager::Init(Engine* e, int win_w, int win_h){
+        
+        /* Initialize Class members.
+         */
+        this->window_width = win_w;
+        this->window_height = win_h;
+        this->e = e;
 
-    void GraphicsManager::Start(){
+        /* Set up GLFW and open a window.
+         */
         glfwInit();
         // We'll use sokol_gfx's OpenGL backend
         glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
         glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
         glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE );
         glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
-        GLFWwindow* window = glfwCreateWindow( this->window_width, this->window_height, "Bingus Engine", /*fullscreen?*/false ? glfwGetPrimaryMonitor() : 0, 0 );
-        glfwSetWindowAspectRatio( window, this->window_width, this->window_height );
-        if( !window )
+        this->window = glfwCreateWindow( this->window_width, this->window_height, "Bingus Engine", /*fullscreen?*/false ? glfwGetPrimaryMonitor() : 0, 0 );
+        glfwSetWindowAspectRatio( (GLFWwindow*)this->window, this->window_width, this->window_height );
+        if( !this->window )
         {
             std::cerr << "Failed to create a window." << std::endl;
             glfwTerminate();
         }
-        glfwMakeContextCurrent( window );
+        glfwMakeContextCurrent( (GLFWwindow*)this->window );
         glfwSwapInterval(1);
+        // Close window functionality (not working for some reason)
+        // glfwSetWindowCloseCallback(window, Shutdown);
     }
 
     void GraphicsManager::Shutdown(){
@@ -33,5 +40,9 @@ namespace bingusengine {
 
     void GraphicsManager::Draw(){
         // wawawawawawawawa ;)
+    }
+
+    bool GraphicsManager::ShouldQuit(){
+        return glfwWindowShouldClose((GLFWwindow*)this->window);
     }
 }
