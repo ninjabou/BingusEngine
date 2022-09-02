@@ -12,24 +12,30 @@ namespace bingusengine {
             GraphicsManager graphics;
             InputManager input;
         
-            void Init( /*GameParameters, SetupCallback, UpdateCallback*/ ){
+            void Init(){
+                // Pass a reference to this Engine, so that the
+                // managers can access each other.
                 graphics.Init(this, 1200, 800);
                 input.Init(this);
-                // this->GameLoop();
             }
 
             void Shutdown(){
                 graphics.Shutdown();
+                // nothing to shut down for Input yet...
             }
 
             void GameLoop(const UpdateCallback& callback){
                 while(true){
+                    // Have input poll the keyboard.
                     input.Update();
                     
+                    // Run user code.
                     callback();
                     
+                    // Draw to the window.
                     graphics.Draw();
 
+                    // Check if the window was closed.
                     if(graphics.ShouldQuit()){
                         this->Shutdown();
                         return;

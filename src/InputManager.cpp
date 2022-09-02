@@ -15,6 +15,5 @@ namespace bingusengine {
 
     bool InputManager::GetKey(int key){
         return glfwGetKey((GLFWwindow*)e->graphics.window, key);
-        // return false;
     }
 }

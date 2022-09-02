@@ -2,13 +2,14 @@
 #define GRAPHICSMANAGER_H
 
 #include "Types.h"
-// #include "GLFW/glfw3.h"
 
 namespace bingusengine {
     class GraphicsManager {
         friend class InputManager;
 
         private:
+            // Unfortunately must be a void* for now,
+            // may change if I implement pimpl pattern.
             void* window;
             int window_width;
             int window_height;

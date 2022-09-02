@@ -30,8 +30,6 @@ namespace bingusengine {
         }
         glfwMakeContextCurrent( (GLFWwindow*)this->window );
         glfwSwapInterval(1);
-        // Close window functionality (not working for some reason)
-        // glfwSetWindowCloseCallback(window, Shutdown);
     }
 
     void GraphicsManager::Shutdown(){
@@ -39,7 +37,7 @@ namespace bingusengine {
     }
 
     void GraphicsManager::Draw(){
-        // wawawawawawawawa ;)
+        // wawawawawawawawa (not yet implemented...)
     }
 
     bool GraphicsManager::ShouldQuit(){

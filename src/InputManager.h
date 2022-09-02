@@ -10,9 +10,6 @@ namespace bingusengine {
 
         public:
             void Init(Engine *e);
-            // void Shutdown();
-            // void Draw();
-
             void Update();
             bool GetKey(int key);
     };
