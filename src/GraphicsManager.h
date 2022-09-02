@@ -6,9 +6,15 @@
 
 namespace bingusengine {
     class GraphicsManager {
+        private:
+            int window_width;
+            int window_height;
+
         public:
+            GraphicsManager(int ww, int wh);
             void Start();
             void Shutdown();
+            void Draw();
     };
 }
 

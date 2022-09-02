@@ -8,16 +8,20 @@ using namespace std::literals::chrono_literals;
 namespace bingusengine {
     class Engine {
         public:
-            GraphicsManager graphics;
+            GraphicsManager* graphics;
             // InputManager input
+
+            Engine(){
+                graphics = new GraphicsManager(1200, 800);
+            }
         
             void Start( /*GameParameters, SetupCallback, UpdateCallback*/ ){
-                graphics.Start();
+                graphics->Start();
                 this->GameLoop();
             }
 
             void Shutdown(){
-                graphics.Shutdown();
+                graphics->Shutdown();
             }
 
             void GameLoop(){
@@ -26,13 +30,13 @@ namespace bingusengine {
                     
                     // UpdateCallback()
                     
-                    // graphics.Draw()
+                    graphics->Draw();
                     
                     // Manage timestep
                     // TEMP FIXED timestep of 1/10 seconds.
                     // Implement delta time at some point...
                     using clock = std::chrono::steady_clock;
-                    clock::time_point next_time_point = clock::now() + 100ms;
+                    clock::time_point next_time_point = clock::now() + 15ms;
 
                     std::this_thread::sleep_until(next_time_point);
                 }
