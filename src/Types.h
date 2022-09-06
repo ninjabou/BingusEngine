@@ -9,6 +9,10 @@ namespace bingusengine {
     class GraphicsManager;
     class InputManager;
     class AudioManager;
+    class GameParameters;
+
+    typedef std::string string;
+    typedef std::function<void()> UpdateCallback;
 
     enum Keys {
         KEY_UNKNOWN = -1,
@@ -134,10 +138,4 @@ namespace bingusengine {
         KEY_MENU = 348,
         KEY_LAST = KEY_MENU
     };
-
-    typedef std::string string;
-    typedef std::function<void()> UpdateCallback;
-    // typedef std::vector vector;
-
-    
 }

@@ -1,5 +1,7 @@
 #include "GraphicsManager.h"
 #include "InputManager.h"
+#include "AudioManager.h"
+#include "ResourceManager.h"
 #include "Types.h"
 #include <chrono>
 #include <thread>
@@ -11,12 +13,16 @@ namespace bingusengine {
         public:
             GraphicsManager graphics;
             InputManager input;
+            ResourceManager resources;
+            AudioManager audio;
         
             void Init(){
                 // Pass a reference to this Engine, so that the
                 // managers can access each other.
                 graphics.Init(this, 1200, 800);
                 input.Init(this);
+                resources.Init(this, "assets/");
+                audio.Init(this);
             }
 
             void Shutdown(){

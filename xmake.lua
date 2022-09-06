@@ -2,11 +2,20 @@ add_rules("mode.debug", "mode.release")
 
 add_requires("glfw")
 
+includes("external/xmake_soloud.lua")
+add_requires("soloud")
+
 target("helloworld")
     set_kind("binary")
     set_languages("cxx17")
 
     add_deps("BingusEngine")
+
+    -- Copy assets
+    after_build(function (target)
+        cprint("Copying assets")
+        os.cp("$(projectdir)/assets", path.directory(target:targetfile()))
+    end)
     
     add_files("demo/helloworld.cpp")
 
@@ -15,6 +24,8 @@ target("BingusEngine")
     set_languages("cxx17")
 
     add_packages("glfw")
+
+    add_packages("soloud")
     
     -- Declare our engine's header path.
     -- This allows targets that depend on the engine to #include them.

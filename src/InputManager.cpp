@@ -16,4 +16,12 @@ namespace bingusengine {
     bool InputManager::GetKey(int key){
         return glfwGetKey((GLFWwindow*)e->graphics.window, key);
     }
+
+    int InputManager::GetXAxis(){
+        return glfwGetKey((GLFWwindow*)e->graphics.window, KEY_D) - glfwGetKey((GLFWwindow*)e->graphics.window, KEY_A);
+    }
+
+    int InputManager::GetYAxis(){
+        return glfwGetKey((GLFWwindow*)e->graphics.window, KEY_W) - glfwGetKey((GLFWwindow*)e->graphics.window, KEY_S);
+    }
 }
