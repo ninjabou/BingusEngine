@@ -27,6 +27,7 @@ namespace bingusengine {
 
             void Shutdown(){
                 graphics.Shutdown();
+                audio.Shutdown();
                 // nothing to shut down for Input yet...
             }
 
