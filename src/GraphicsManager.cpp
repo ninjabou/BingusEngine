@@ -21,6 +21,8 @@ namespace bingusengine {
         int window_width;
         int window_height;
         Engine* e = nullptr;
+
+        sg_pass_action pass_action{};
     };
 
     void GraphicsManager::Init(Engine* e, int win_w, int win_h){
@@ -86,6 +88,29 @@ namespace bingusengine {
         shader_desc.vs.uniform_blocks[0].uniforms[1].name = "transform";
         shader_desc.vs.uniform_blocks[0].uniforms[1].type = SG_UNIFORMTYPE_MAT4;
 
+        shader_desc.fs.source = R"(
+            #version 330
+            uniform sampler2D tex;
+            in vec2 texcoords;
+            out vec4 frag_color;
+            void main() {
+                frag_color = texture( tex, texcoords );
+                // If we're not drawing back to front, discard very transparent pixels so we
+                // don't write to the depth buffer and prevent farther sprites from drawing.
+                if( frag_color.a < 0.1 ) discard;
+            })";
+
+        shader_desc.fs.images[0].name = "tex"; // The name should match the shader source code.
+        shader_desc.fs.images[0].image_type = SG_IMAGETYPE_2D;
+
+        pipeline_desc.shader = sg_make_shader( shader_desc );
+        sg_pipeline pipeline = sg_make_pipeline( pipeline_desc );
+
+        priv->pass_action.colors[0].action = SG_ACTION_CLEAR;
+        priv->pass_action.colors[0].value = { /* red, green, blue, alpha floating point values for a color to fill the frame buffer with */ };
+
+        sg_bindings bindings{};
+        bindings.vertex_buffers[0] = vertex_buffer;
     }
 
     void GraphicsManager::Shutdown(){

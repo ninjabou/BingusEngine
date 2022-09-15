@@ -2,14 +2,13 @@
 #define INPUTMANAGER_H
 
 #include "Types.h"
+#include <memory>
 
 namespace bingusengine {
     class InputManager {
         private:
-            Engine* e;
-            float axis_x;
-            float axis_y;
-            int key_states[KEY_LAST];
+            struct impl;
+            std::unique_ptr<impl> priv;
 
         public:
             void Init(Engine *e);
@@ -19,6 +18,9 @@ namespace bingusengine {
             bool GetKeyUp(int key);
             int GetXAxis();
             int GetYAxis();
+
+            InputManager();
+            ~InputManager();
     };
 }
 

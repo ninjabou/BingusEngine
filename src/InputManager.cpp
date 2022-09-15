@@ -5,11 +5,23 @@
 #include <iostream>
 
 namespace bingusengine {
+    struct InputManager::impl{
+        Engine* e = nullptr;
+        float axis_x;
+        float axis_y;
+
+        // 0: Not Pressed
+        // 1: Just Pressed
+        // 2: Currently Held
+        // 3: Just Released
+        int key_states[KEY_LAST];
+    };
+
     void InputManager::Init(Engine *e){
-        this->e = e;
+        priv->e = e;
 
         for(int i = 0; i <= KEY_LAST; i++){
-            key_states[i] = 0;
+            priv->key_states[i] = 0;
         }
     }
 
@@ -17,48 +29,51 @@ namespace bingusengine {
         glfwPollEvents();
 
         for(int i = 0; i <= KEY_LAST; i++){
-            if(glfwGetKey((GLFWwindow*)e->graphics.window(), i)){
-                if(key_states[i] == 0){
-                    key_states[i] = 1;
-                } else if(key_states[i] == 1){
-                    key_states[i] = 2;
+            if(glfwGetKey((GLFWwindow*)priv->e->graphics.window(), i)){
+                if(priv->key_states[i] == 0){
+                    priv->key_states[i] = 1;
+                } else if(priv->key_states[i] == 1){
+                    priv->key_states[i] = 2;
                 }
             } else {
-                if(key_states[i] == 2){
-                    key_states[i] = 3;
-                } else if(key_states[i] == 3){
-                    key_states[i] = 0;
+                if(priv->key_states[i] == 2){
+                    priv->key_states[i] = 3;
+                } else if(priv->key_states[i] == 3){
+                    priv->key_states[i] = 0;
                 }
             }
         }
     }
 
     bool InputManager::GetKey(int key){
-        if(key_states[key] == 1 || key_states[key] == 2){
+        if(priv->key_states[key] == 1 || priv->key_states[key] == 2){
             return true;
         }
         return false;
     }
 
     bool InputManager::GetKeyDown(int key){
-        if(key_states[key] == 1){
+        if(priv->key_states[key] == 1){
             return true;
         }
         return false;
     }
 
     bool InputManager::GetKeyUp(int key){
-        if(key_states[key] == 3){
+        if(priv->key_states[key] == 3){
             return true;
         }
         return false;
     }
 
     int InputManager::GetXAxis(){
-        return glfwGetKey((GLFWwindow*)e->graphics.window(), KEY_D) - glfwGetKey((GLFWwindow*)e->graphics.window(), KEY_A);
+        return glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_D) - glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_A);
     }
 
     int InputManager::GetYAxis(){
-        return glfwGetKey((GLFWwindow*)e->graphics.window(), KEY_W) - glfwGetKey((GLFWwindow*)e->graphics.window(), KEY_S);
+        return glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_W) - glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_S);
     }
+
+    InputManager::InputManager() : priv(std::make_unique<impl>()){}
+    InputManager::~InputManager() = default;
 }
