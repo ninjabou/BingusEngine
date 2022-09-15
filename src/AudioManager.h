@@ -7,9 +7,8 @@
 namespace bingusengine {
     class AudioManager {
         private:
-            Engine* e = nullptr;
             struct impl;
-            std::unique_ptr<impl> pImpl;
+            std::unique_ptr<impl> priv;
 
         public:
             void Init(Engine* e);

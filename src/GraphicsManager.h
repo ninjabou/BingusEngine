@@ -2,24 +2,33 @@
 #define GRAPHICSMANAGER_H
 
 #include "Types.h"
+#include <memory>
 
 namespace bingusengine {
-    class GraphicsManager {
-        friend class InputManager;
+    // A vertex buffer containing a textured square.
+    const float vertices[] = {
+        // positions      // texcoords
+        -1.0f,  -1.0f,    0.0f,  0.0f,
+        1.0f,  -1.0f,    1.0f,  0.0f,
+        -1.0f,   1.0f,    0.0f,  1.0f,
+        1.0f,   1.0f,    1.0f,  1.0f,
+    };
 
+    class GraphicsManager {
         private:
-            // Unfortunately must be a void* for now,
-            // may change if I implement pimpl pattern.
-            void* window;
-            int window_width;
-            int window_height;
-            Engine* e;
+            struct impl;
+            std::unique_ptr<impl> priv;
 
         public:
             void Init(Engine* e, int win_w, int win_h);
             void Shutdown();
             void Draw();
             bool ShouldQuit();
+
+            void* window();
+
+            GraphicsManager();
+            ~GraphicsManager();
     };
 }
 

@@ -1,9 +1,10 @@
 add_rules("mode.debug", "mode.release")
 
 add_requires("glfw")
-
 includes("external/xmake_soloud.lua")
 add_requires("soloud")
+add_requires("sokol")
+add_requires("glm")
 
 target("helloworld")
     set_kind("binary")
@@ -24,8 +25,9 @@ target("BingusEngine")
     set_languages("cxx17")
 
     add_packages("glfw")
-
+    add_packages("sokol")
     add_packages("soloud")
+    add_packages("glm", {public = true})
     
     -- Declare our engine's header path.
     -- This allows targets that depend on the engine to #include them.

@@ -6,30 +6,28 @@
 
 namespace bingusengine {
     struct AudioManager::impl{
+        Engine* e = nullptr;
         SoLoud::Soloud soloud;
         std::unordered_map<string, SoLoud::Wav> sounds;
     };
 
     void AudioManager::Init(Engine* e){
-        this->e = e;
-        this->pImpl->soloud.init();
+        priv->e = e;
+        priv->soloud.init();
     }
 
     void AudioManager::Shutdown(){
-        this->pImpl->soloud.deinit();
+        priv->soloud.deinit();
     }
 
     void AudioManager::LoadSound(const string& name, const string& path){
-        int err = this->pImpl->sounds[name].load(path.c_str());
+        int err = priv->sounds[name].load(path.c_str());
     }
 
     void AudioManager::PlaySound(const string& name){
-        this->pImpl->soloud.play(this->pImpl->sounds[name]);
+        priv->soloud.play(priv->sounds[name]);
     }
 
-    // AudioManager::AudioManager(){}
-    // AudioManager::~AudioManager(){}
-
-    AudioManager::AudioManager() : pImpl(std::make_unique<impl>()){}
+    AudioManager::AudioManager() : priv(std::make_unique<impl>()){}
     AudioManager::~AudioManager() = default;
 }

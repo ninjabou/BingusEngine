@@ -2,6 +2,7 @@
 
 #include <string>
 #include <functional>
+#include "glm/glm.hpp"
 
 namespace bingusengine {
     
@@ -13,6 +14,22 @@ namespace bingusengine {
 
     typedef std::string string;
     typedef std::function<void()> UpdateCallback;
+
+    typedef glm::vec2 vec2;
+    typedef glm::vec3 vec3;
+    typedef glm::vec4 vec4;
+    typedef glm::mat2 mat2;
+    typedef glm::mat3 mat3;
+    typedef glm::mat4 mat4;
+
+    // A vertex buffer containing a textured square.
+    // const float vertices[] = {
+    //     // positions      // texcoords
+    //     -1.0f,  -1.0f,    0.0f,  0.0f,
+    //     1.0f,  -1.0f,    1.0f,  0.0f,
+    //     -1.0f,   1.0f,    0.0f,  1.0f,
+    //     1.0f,   1.0f,    1.0f,  1.0f,
+    // };
 
     enum Keys {
         KEY_UNKNOWN = -1,

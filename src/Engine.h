@@ -3,6 +3,7 @@
 #include "AudioManager.h"
 #include "ResourceManager.h"
 #include "Types.h"
+#include "glm/glm.hpp"
 #include <chrono>
 #include <thread>
 
