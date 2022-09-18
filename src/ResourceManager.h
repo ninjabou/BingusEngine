@@ -5,8 +5,9 @@
 
 namespace bingusengine {
     class ResourceManager {
+        // TO BE REPLACED WITH PIMPL
         private:
-            Engine* e;
+            Engine* e = nullptr;
             string root;
 
         public:

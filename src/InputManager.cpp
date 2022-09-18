@@ -1,4 +1,5 @@
 #define GLFW_INCLUDE_NONE
+
 #include "InputManager.h"
 #include "GLFW/glfw3.h"
 #include "Engine.h"

@@ -40,8 +40,9 @@ namespace bingusengine {
                     // Run user code.
                     callback();
                     
-                    // Draw to the window.
-                    graphics.Draw();
+                    // We will need to draw the available entities,
+                    // one we know what they are....
+                    // graphics.Draw();
 
                     // Check if the window was closed.
                     if(graphics.ShouldQuit()){

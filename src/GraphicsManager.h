@@ -21,8 +21,10 @@ namespace bingusengine {
 
         public:
             void Init(Engine* e, int win_w, int win_h);
+            void LoadImage(const string& name, const string& path);
+            void DestroyImage(const string& name);
             void Shutdown();
-            void Draw();
+            void Draw(const std::vector<Sprite>& sprites);
             bool ShouldQuit();
 
             void* window();

@@ -11,6 +11,7 @@ namespace bingusengine {
     class InputManager;
     class AudioManager;
     class GameParameters;
+    class Sprite;
 
     typedef std::string string;
     typedef std::function<void()> UpdateCallback;
