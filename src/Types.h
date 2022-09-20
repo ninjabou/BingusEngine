@@ -11,7 +11,7 @@ namespace bingusengine {
     class InputManager;
     class AudioManager;
     class GameParameters;
-    class Sprite;
+    // class Sprite;
 
     typedef std::string string;
     typedef std::function<void()> UpdateCallback;
@@ -22,6 +22,13 @@ namespace bingusengine {
     typedef glm::mat2 mat2;
     typedef glm::mat3 mat3;
     typedef glm::mat4 mat4;
+
+    struct Sprite {
+        string name;
+        vec2 position;
+        float scale;
+        float z;
+    };
 
     // A vertex buffer containing a textured square.
     // const float vertices[] = {

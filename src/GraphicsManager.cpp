@@ -25,13 +25,6 @@ namespace bingusengine {
         int height;
     };
 
-    struct Sprite {
-        string name;
-        vec2 position;
-        float scale;
-        float z;
-    };
-
     struct GraphicsManager::impl {
         int window_width;
         int window_height;
@@ -128,9 +121,8 @@ namespace bingusengine {
         priv->pipeline = sg_make_pipeline( pipeline_desc );
 
         priv->pass_action.colors[0].action = SG_ACTION_CLEAR;
-        priv->pass_action.colors[0].value = { /* red, green, blue, alpha floating point values for a color to fill the frame buffer with */ };
+        priv->pass_action.colors[0].value = {0., 0., 0., 1.};
 
-        sg_bindings bindings{};
         priv->bindings.vertex_buffers[0] = vertex_buffer;
     }
 
@@ -150,8 +142,6 @@ namespace bingusengine {
         image_desc.data.subimage[0][0].size = (size_t)(width * height * 4);
 
         sg_image image = sg_make_image(image_desc);
-
-        priv->bindings.fs_images[0] = image;
 
         priv->images[name].image = image;
         priv->images[name].width = width;
@@ -185,6 +175,14 @@ namespace bingusengine {
             // Scale x and y by 1/100.
             uniforms.projection[0][0] = uniforms.projection[1][1] = 1./100.;
             // Scale the long edge by an additional 1/(long/short) = short/long.
+            // if(priv->images[sprite.name].width < priv->images[sprite.name].height) {
+            //     uniforms.projection[1][1] *= priv->images[sprite.name].width;
+            //     uniforms.projection[1][1] /= priv->images[sprite.name].height;
+            // } else {
+            //     uniforms.projection[0][0] *= priv->images[sprite.name].height;
+            //     uniforms.projection[0][0] /= priv->images[sprite.name].width;
+            // }
+
             if(priv->window_width < priv->window_height) {
                 uniforms.projection[1][1] *= priv->window_width;
                 uniforms.projection[1][1] /= priv->window_height;
@@ -193,7 +191,7 @@ namespace bingusengine {
                 uniforms.projection[0][0] /= priv->window_width;
             }
 
-            uniforms.transform = translate( mat4{1}, vec3( sprite.position, sprite.z ) ) * scale( mat4{1}, vec3( sprite.scale ) );
+            uniforms.transform = translate( mat4{1}, vec3( sprite.position, sprite.z ) ) * scale( mat4{1}, -vec3( sprite.scale ) );
 
             if(priv->images[sprite.name].width < priv->images[sprite.name].height) {
                 uniforms.transform = uniforms.transform * scale( mat4{1}, vec3( double(priv->images[sprite.name].width)/priv->images[sprite.name].height, 1.0, 1.0 ) );
@@ -202,6 +200,7 @@ namespace bingusengine {
             }
 
             sg_apply_uniforms(SG_SHADERSTAGE_VS, 0, SG_RANGE(uniforms));
+            priv->bindings.fs_images[0] = priv->images[sprite.name].image;
             sg_apply_bindings(priv->bindings);
             sg_draw(0, 4, 1);
         }
