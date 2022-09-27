@@ -6,6 +6,7 @@
 
 namespace bingusengine {
     
+    // managers & engine
     class Engine;
     class GraphicsManager;
     class InputManager;
@@ -16,6 +17,7 @@ namespace bingusengine {
     typedef std::string string;
     typedef std::function<void()> UpdateCallback;
 
+    // glm overrides
     typedef glm::vec2 vec2;
     typedef glm::vec3 vec3;
     typedef glm::vec4 vec4;
@@ -29,6 +31,14 @@ namespace bingusengine {
         float scale;
         float z;
     };
+
+    // Components
+    struct Position : public vec2 {};
+    struct Velocity : public vec2 {};
+    struct Gravity { real meters_per_second; }
+    struct Sprite { string image; real size; };
+    struct Health { real percent; };
+    struct Script { string name; };
 
     // A vertex buffer containing a textured square.
     // const float vertices[] = {
