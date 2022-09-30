@@ -6,54 +6,60 @@ int main( int argc, const char* argv[] ) {
 
     std::cout << "Hello, World!\n";
 
-    Engine engine;
-    engine.Init();
-    engine.audio.LoadSound("yahoo", "assets/mk64_toad03.wav");
-    engine.graphics.LoadImage("toad", "assets/toad.png");
+    Engine e;
+    e.Init();
+    e.audio.LoadSound("yahoo", "assets/mk64_toad03.wav");
+    e.graphics.LoadImage("toad", "assets/toad.png");
 
-    Sprite toad_spr;
-    toad_spr.position = vec2(10, 10);
-    toad_spr.z = 1.;
-    toad_spr.scale = 20.;
-    toad_spr.name = "toad";
+    EntityID toad1 = e.ecs.Create();
+    e.ecs.Get<Position>(toad1).x = 10;
+    e.ecs.Get<Position>(toad1).y = 10;
+    e.ecs.Get<Sprite>(toad1).z = 1.;
+    e.ecs.Get<Sprite>(toad1).scale = 20.;
+    e.ecs.Get<Sprite>(toad1).name = "toad";
 
-    Sprite toad_spr2;
-    toad_spr2.position = vec2(-30, -20);
-    toad_spr2.z = 1.;
-    toad_spr2.scale = 10.;
-    toad_spr2.name = "toad";
+    EntityID toad2 = e.ecs.Create();
+    e.ecs.Get<Position>(toad2).x = -30;
+    e.ecs.Get<Position>(toad2).y = -20;
+    e.ecs.Get<Sprite>(toad2).z = 1.;
+    e.ecs.Get<Sprite>(toad2).scale = 10.;
+    e.ecs.Get<Sprite>(toad2).name = "toad";
 
-    std::vector<Sprite> sprites;
-    sprites.push_back(toad_spr);
-    sprites.push_back(toad_spr2);
+    // test to make sure ECS.Destroy() works, should not render!
+    EntityID toad3 = e.ecs.Create();
+    e.ecs.Get<Position>(toad3).x = -30;
+    e.ecs.Get<Position>(toad3).y = 20;
+    e.ecs.Get<Sprite>(toad3).z = 1.;
+    e.ecs.Get<Sprite>(toad3).scale = 10.;
+    e.ecs.Get<Sprite>(toad3).name = "toad";
+    e.ecs.Destroy(toad3);
     
-    engine.GameLoop( [&]() {
-        // engine.graphics.Draw(sprites);
+    e.GameLoop( [&]() {
 
-        if(engine.input.GetKeyDown(KEY_W)){
+        if(e.input.GetKeyDown(KEY_W)){
             std::cout << "⇑\n";
         }
-        if(engine.input.GetKeyDown(KEY_A)){
+        if(e.input.GetKeyDown(KEY_A)){
             std::cout << "⇐\n";
-            engine.audio.PlaySound("yahoo");
+            e.audio.PlaySound("yahoo");
         }
-        if(engine.input.GetKeyDown(KEY_S)){
+        if(e.input.GetKeyDown(KEY_S)){
             std::cout << "⇓\n";
         }
-        if(engine.input.GetKeyDown(KEY_D)){
+        if(e.input.GetKeyDown(KEY_D)){
             std::cout << "⇒\n";
         }
-        if(engine.input.GetKey(KEY_W)){
-            sprites[1].position.y += 1;
+        if(e.input.GetKey(KEY_W)){
+            e.ecs.Get<Position>(toad2).y += 1;
         }
-        if(engine.input.GetKey(KEY_A)){
-            sprites[1].position.x -= 1;
+        if(e.input.GetKey(KEY_A)){
+            e.ecs.Get<Position>(toad2).x -= 1;
         }
-        if(engine.input.GetKey(KEY_S)){
-            sprites[1].position.y -= 1;
+        if(e.input.GetKey(KEY_S)){
+            e.ecs.Get<Position>(toad2).y -= 1;
         }
-        if(engine.input.GetKey(KEY_D)){
-            sprites[1].position.x += 1;
+        if(e.input.GetKey(KEY_D)){
+            e.ecs.Get<Position>(toad2).x += 1;
         }
     } );
 

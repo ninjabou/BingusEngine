@@ -27,9 +27,11 @@ namespace bingusengine {
     typedef glm::mat3 mat3;
     typedef glm::mat4 mat4;
 
+    typedef uint64_t EntityID;
+
     struct Sprite {
         string name;
-        vec2 position;
+        vec2 offset;
         float scale;
         float z;
     };
@@ -40,15 +42,6 @@ namespace bingusengine {
     struct Gravity { double meters_per_second; };
     struct Health { double percent; };
     struct Script { string name; };
-
-    // A vertex buffer containing a textured square.
-    // const float vertices[] = {
-    //     // positions      // texcoords
-    //     -1.0f,  -1.0f,    0.0f,  0.0f,
-    //     1.0f,  -1.0f,    1.0f,  0.0f,
-    //     -1.0f,   1.0f,    0.0f,  1.0f,
-    //     1.0f,   1.0f,    1.0f,  1.0f,
-    // };
 
     enum Keys {
         KEY_UNKNOWN = -1,

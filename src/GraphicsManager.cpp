@@ -170,10 +170,19 @@ namespace bingusengine {
         // Start with an identity matrix.
         Uniforms uniforms{};
 
-        priv->e->ecs.ForEach<Sprite>([&](uint64_t entity){
-            // Sprite sprite = priv->e->ecs.Get<Sprite>(entity);
-            Sprite sprite;
+        // we need to extract the Sprites from the ECS, so we can sort by z.
+        std::vector<Sprite> sprites;
+        priv->e->ecs.ForEach<Sprite>([&](EntityID entity){
+            Sprite sprite = priv->e->ecs.Get<Sprite>(entity);
+            Position pos = priv->e->ecs.Get<Position>(entity);
 
+            sprite.offset.x += pos.x;
+            sprite.offset.y += pos.y;
+            sprites.push_back(sprite);
+        });
+        std::sort(sprites.begin(), sprites.end(), [](const Sprite& lhs, const Sprite& rhs){ return lhs.z > rhs.z; });
+
+        for(Sprite sprite : sprites){
             uniforms.projection = mat4{1};
             // Scale x and y by 1/100.
             uniforms.projection[0][0] = uniforms.projection[1][1] = 1./100.;
@@ -186,7 +195,7 @@ namespace bingusengine {
                 uniforms.projection[0][0] /= priv->window_width;
             }
 
-            uniforms.transform = translate( mat4{1}, vec3( sprite.position, sprite.z ) ) * scale( mat4{1}, -vec3( sprite.scale ) );
+            uniforms.transform = translate(mat4{1}, vec3(sprite.offset, sprite.z)) * scale(mat4{1}, -vec3(sprite.scale));
 
             if(priv->images[sprite.name].width < priv->images[sprite.name].height) {
                 uniforms.transform = uniforms.transform * scale( mat4{1}, vec3( double(priv->images[sprite.name].width)/priv->images[sprite.name].height, 1.0, 1.0 ) );
@@ -198,7 +207,7 @@ namespace bingusengine {
             priv->bindings.fs_images[0] = priv->images[sprite.name].image;
             sg_apply_bindings(priv->bindings);
             sg_draw(0, 4, 1);
-        });
+        }
         
 
         sg_end_pass();
