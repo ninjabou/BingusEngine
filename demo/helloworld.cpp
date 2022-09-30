@@ -28,7 +28,7 @@ int main( int argc, const char* argv[] ) {
     sprites.push_back(toad_spr2);
     
     engine.GameLoop( [&]() {
-        engine.graphics.Draw(sprites);
+        // engine.graphics.Draw(sprites);
 
         if(engine.input.GetKeyDown(KEY_W)){
             std::cout << "⇑\n";

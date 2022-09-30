@@ -24,7 +24,7 @@ namespace bingusengine {
             void LoadImage(const string& name, const string& path);
             void DestroyImage(const string& name);
             void Shutdown();
-            void Draw(const std::vector<Sprite>& sprites);
+            void Draw();
             bool ShouldQuit();
 
             void* window();

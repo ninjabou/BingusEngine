@@ -2,6 +2,7 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "ResourceManager.h"
+#include "ECS.h"
 #include "Types.h"
 #include "glm/glm.hpp"
 #include <chrono>
@@ -16,6 +17,7 @@ namespace bingusengine {
             InputManager input;
             ResourceManager resources;
             AudioManager audio;
+            ECS ecs;
         
             void Init(){
                 // Pass a reference to this Engine, so that the
@@ -24,6 +26,7 @@ namespace bingusengine {
                 input.Init(this);
                 resources.Init(this, "assets/");
                 audio.Init(this);
+                ecs.Init(this);
             }
 
             void Shutdown(){
@@ -40,9 +43,7 @@ namespace bingusengine {
                     // Run user code.
                     callback();
                     
-                    // We will need to draw the available entities,
-                    // one we know what they are....
-                    // graphics.Draw();
+                    graphics.Draw();
 
                     // Check if the window was closed.
                     if(graphics.ShouldQuit()){

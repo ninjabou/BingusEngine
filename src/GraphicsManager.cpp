@@ -160,7 +160,7 @@ namespace bingusengine {
         sg_shutdown();
     }
 
-    void GraphicsManager::Draw(const std::vector<Sprite>& sprites){
+    void GraphicsManager::Draw(){
         glfwGetFramebufferSize(priv->window, &priv->window_width, &priv->window_height);
         sg_begin_default_pass(priv->pass_action, priv->window_width, priv->window_height);
         sg_apply_pipeline(priv->pipeline);
@@ -170,18 +170,13 @@ namespace bingusengine {
         // Start with an identity matrix.
         Uniforms uniforms{};
 
-        for(Sprite sprite : sprites){
+        priv->e->ecs.ForEach<Sprite>([&](uint64_t entity){
+            // Sprite sprite = priv->e->ecs.Get<Sprite>(entity);
+            Sprite sprite;
+
             uniforms.projection = mat4{1};
             // Scale x and y by 1/100.
             uniforms.projection[0][0] = uniforms.projection[1][1] = 1./100.;
-            // Scale the long edge by an additional 1/(long/short) = short/long.
-            // if(priv->images[sprite.name].width < priv->images[sprite.name].height) {
-            //     uniforms.projection[1][1] *= priv->images[sprite.name].width;
-            //     uniforms.projection[1][1] /= priv->images[sprite.name].height;
-            // } else {
-            //     uniforms.projection[0][0] *= priv->images[sprite.name].height;
-            //     uniforms.projection[0][0] /= priv->images[sprite.name].width;
-            // }
 
             if(priv->window_width < priv->window_height) {
                 uniforms.projection[1][1] *= priv->window_width;
@@ -203,7 +198,8 @@ namespace bingusengine {
             priv->bindings.fs_images[0] = priv->images[sprite.name].image;
             sg_apply_bindings(priv->bindings);
             sg_draw(0, 4, 1);
-        }
+        });
+        
 
         sg_end_pass();
         sg_commit();

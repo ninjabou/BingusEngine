@@ -12,10 +12,12 @@ namespace bingusengine {
     class InputManager;
     class AudioManager;
     class GameParameters;
+    class ECS;
     // class Sprite;
 
     typedef std::string string;
     typedef std::function<void()> UpdateCallback;
+    typedef std::function<void(uint64_t)> ForEachCallback;
 
     // glm overrides
     typedef glm::vec2 vec2;
@@ -35,9 +37,8 @@ namespace bingusengine {
     // Components
     struct Position : public vec2 {};
     struct Velocity : public vec2 {};
-    struct Gravity { real meters_per_second; }
-    struct Sprite { string image; real size; };
-    struct Health { real percent; };
+    struct Gravity { double meters_per_second; };
+    struct Health { double percent; };
     struct Script { string name; };
 
     // A vertex buffer containing a textured square.
