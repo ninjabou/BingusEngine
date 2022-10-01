@@ -14,14 +14,14 @@ int main( int argc, const char* argv[] ) {
     EntityID toad1 = e.ecs.Create();
     e.ecs.Get<Position>(toad1).x = 10;
     e.ecs.Get<Position>(toad1).y = 10;
-    e.ecs.Get<Sprite>(toad1).z = 1.;
+    e.ecs.Get<Sprite>(toad1).z = 0.;
     e.ecs.Get<Sprite>(toad1).scale = 20.;
     e.ecs.Get<Sprite>(toad1).name = "toad";
 
     EntityID toad2 = e.ecs.Create();
     e.ecs.Get<Position>(toad2).x = -30;
     e.ecs.Get<Position>(toad2).y = -20;
-    e.ecs.Get<Sprite>(toad2).z = 1.;
+    e.ecs.Get<Sprite>(toad2).z = -1.;
     e.ecs.Get<Sprite>(toad2).scale = 10.;
     e.ecs.Get<Sprite>(toad2).name = "toad";
 
@@ -35,20 +35,6 @@ int main( int argc, const char* argv[] ) {
     e.ecs.Destroy(toad3);
     
     e.GameLoop( [&]() {
-
-        if(e.input.GetKeyDown(KEY_W)){
-            std::cout << "⇑\n";
-        }
-        if(e.input.GetKeyDown(KEY_A)){
-            std::cout << "⇐\n";
-            e.audio.PlaySound("yahoo");
-        }
-        if(e.input.GetKeyDown(KEY_S)){
-            std::cout << "⇓\n";
-        }
-        if(e.input.GetKeyDown(KEY_D)){
-            std::cout << "⇒\n";
-        }
         if(e.input.GetKey(KEY_W)){
             e.ecs.Get<Position>(toad2).y += 1;
         }

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <memory>
 #include <set>
+#include <unordered_set>
 #include <iostream>
 
 namespace bingusengine {
@@ -106,10 +107,12 @@ namespace bingusengine {
                     // we haven't removed any ids yet.
                     if(!used_ids.empty()){
                         // we already have some used ids.
-                        assigned_id = *used_ids.insert(*used_ids.rbegin() + 1).first;
+                        assigned_id = *used_ids.insert(largest_id_seen + 1).first;
+                        largest_id_seen = assigned_id;
                     } else {
                         // this is the first created id.
-                        assigned_id = *used_ids.insert(EntityID(1)).first;
+                        assigned_id = *used_ids.insert(EntityID(0)).first;
+                        largest_id_seen = EntityID(0);
                     }
                 }
 
@@ -136,7 +139,8 @@ namespace bingusengine {
             // released_ids. create() will then prefer to use the smallest
             // element on released_ids before adding to used_ids.
             // this is done so that we can prioritize low ids.
-            std::set<EntityID> used_ids;
+            EntityID largest_id_seen;
+            std::unordered_set<EntityID> used_ids;
             std::set<EntityID> released_ids;
     };
 }

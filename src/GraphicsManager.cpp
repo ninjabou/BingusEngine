@@ -121,7 +121,7 @@ namespace bingusengine {
         priv->pipeline = sg_make_pipeline( pipeline_desc );
 
         priv->pass_action.colors[0].action = SG_ACTION_CLEAR;
-        priv->pass_action.colors[0].value = {0., 0., 0., 1.};
+        priv->pass_action.colors[0].value = {0.2, 0.2, 0.2, 1.};
 
         priv->bindings.vertex_buffers[0] = vertex_buffer;
     }
