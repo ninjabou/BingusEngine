@@ -3,6 +3,7 @@
 #include "AudioManager.h"
 #include "ResourceManager.h"
 #include "ECS.h"
+#include "ScriptManager.h"
 #include "Types.h"
 #include "glm/glm.hpp"
 #include <chrono>
@@ -18,6 +19,7 @@ namespace bingusengine {
             ResourceManager resources;
             AudioManager audio;
             ECS ecs;
+            ScriptManager scripts;
         
             void Init(){
                 // Pass a reference to this Engine, so that the
@@ -27,6 +29,7 @@ namespace bingusengine {
                 resources.Init(this, "assets/");
                 audio.Init(this);
                 ecs.Init(this);
+                scripts.Init(this);
             }
 
             void Shutdown(){

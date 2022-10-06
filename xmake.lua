@@ -6,6 +6,7 @@ add_requires("soloud")
 add_requires("sokol")
 add_requires("glm")
 add_requires("stb")
+add_requires("lua", "sol2")
 
 target("helloworld")
     set_kind("binary")
@@ -30,6 +31,8 @@ target("BingusEngine")
     add_packages("soloud")
     add_packages("glm", {public = true})
     add_packages("stb")
+    add_packages("lua")
+    add_packages("sol2", {public = true})
     
     -- Declare our engine's header path.
     -- This allows targets that depend on the engine to #include them.
