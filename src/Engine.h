@@ -20,6 +20,7 @@ namespace bingusengine {
             AudioManager audio;
             ECS ecs;
             ScriptManager scripts;
+            bool engineQuit;
         
             void Init(){
                 // Pass a reference to this Engine, so that the
@@ -30,12 +31,17 @@ namespace bingusengine {
                 audio.Init(this);
                 ecs.Init(this);
                 scripts.Init(this);
+                engineQuit = false;
             }
 
             void Shutdown(){
                 graphics.Shutdown();
                 audio.Shutdown();
                 // nothing to shut down for Input yet...
+            }
+
+            void Quit(){
+                engineQuit = true;
             }
 
             void GameLoop(const UpdateCallback& callback){
@@ -45,11 +51,13 @@ namespace bingusengine {
                     
                     // Run user code.
                     callback();
+
+                    scripts.Update();
                     
                     graphics.Draw();
 
                     // Check if the window was closed.
-                    if(graphics.ShouldQuit()){
+                    if(graphics.ShouldQuit() || engineQuit){
                         this->Shutdown();
                         return;
                     }

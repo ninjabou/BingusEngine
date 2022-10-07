@@ -67,14 +67,6 @@ namespace bingusengine {
         return false;
     }
 
-    int InputManager::GetXAxis(){
-        return glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_D) - glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_A);
-    }
-
-    int InputManager::GetYAxis(){
-        return glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_W) - glfwGetKey((GLFWwindow*)priv->e->graphics.window(), KEY_S);
-    }
-
     InputManager::InputManager() : priv(std::make_unique<impl>()){}
     InputManager::~InputManager() = default;
 }

@@ -33,6 +33,7 @@ namespace bingusengine {
         string name;
         vec2 offset;
         float scale;
+        float rotation;
         float z;
     };
 

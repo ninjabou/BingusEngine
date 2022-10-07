@@ -10,6 +10,8 @@ int main( int argc, const char* argv[] ) {
     e.Init();
     e.audio.LoadSound("yahoo", "assets/mk64_toad03.wav");
     e.graphics.LoadImage("toad", "assets/toad.png");
+    e.scripts.LoadScript("testscript", "assets/test.lua");
+    e.scripts.LoadScript("controls", "assets/controls.lua");
 
     EntityID toad1 = e.ecs.Create();
     e.ecs.Get<Position>(toad1).x = 10;
@@ -17,6 +19,7 @@ int main( int argc, const char* argv[] ) {
     e.ecs.Get<Sprite>(toad1).z = 0.;
     e.ecs.Get<Sprite>(toad1).scale = 20.;
     e.ecs.Get<Sprite>(toad1).name = "toad";
+    e.ecs.Get<Script>(toad1).name = "testscript";
 
     EntityID toad2 = e.ecs.Create();
     e.ecs.Get<Position>(toad2).x = -30;
@@ -24,6 +27,7 @@ int main( int argc, const char* argv[] ) {
     e.ecs.Get<Sprite>(toad2).z = -1.;
     e.ecs.Get<Sprite>(toad2).scale = 10.;
     e.ecs.Get<Sprite>(toad2).name = "toad";
+    e.ecs.Get<Script>(toad2).name = "controls";
 
     // test to make sure ECS.Destroy() works, should not render!
     EntityID toad3 = e.ecs.Create();
@@ -35,18 +39,18 @@ int main( int argc, const char* argv[] ) {
     e.ecs.Destroy(toad3);
     
     e.GameLoop( [&]() {
-        if(e.input.GetKey(KEY_W)){
-            e.ecs.Get<Position>(toad2).y += 1;
-        }
-        if(e.input.GetKey(KEY_A)){
-            e.ecs.Get<Position>(toad2).x -= 1;
-        }
-        if(e.input.GetKey(KEY_S)){
-            e.ecs.Get<Position>(toad2).y -= 1;
-        }
-        if(e.input.GetKey(KEY_D)){
-            e.ecs.Get<Position>(toad2).x += 1;
-        }
+        // if(e.input.GetKey(KEY_W)){
+        //     e.ecs.Get<Position>(toad2).y += 1;
+        // }
+        // if(e.input.GetKey(KEY_A)){
+        //     e.ecs.Get<Position>(toad2).x -= 1;
+        // }
+        // if(e.input.GetKey(KEY_S)){
+        //     e.ecs.Get<Position>(toad2).y -= 1;
+        // }
+        // if(e.input.GetKey(KEY_D)){
+        //     e.ecs.Get<Position>(toad2).x += 1;
+        // }
     } );
 
     return 0;
