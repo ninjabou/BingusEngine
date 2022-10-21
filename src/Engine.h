@@ -31,6 +31,7 @@ namespace bingusengine {
                 audio.Init(this);
                 ecs.Init(this);
                 scripts.Init(this);
+
                 engineQuit = false;
             }
 

@@ -134,6 +134,15 @@ namespace bingusengine{
                 [](float f, const glm::vec2& v1) -> glm::vec2 { return f*v1; }
             )
         );
+
+        // LERP
+        priv->lua.set_function("Lerp", [&](double a, double b, double t){
+            return a + (b - a) * t;
+        });
+
+        // LOAD INIT SCRIPT AND RUN
+        LoadScript("init", "assets/init.lua");
+        priv->scripts.at("init")(priv->e);
     }
 
     bool ScriptManager::LoadScript(const string& name, const string& path){

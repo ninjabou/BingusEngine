@@ -14,11 +14,12 @@ target("helloworld")
 
     add_deps("BingusEngine")
 
-    -- Copy assets
-    after_build(function (target)
-        cprint("Copying assets")
-        os.cp("$(projectdir)/assets", path.directory(target:targetfile()))
-    end)
+    -- -- Copy assets
+    -- after_build(function (target)
+    --     cprint("Copying assets")
+    --     os.cp("$(projectdir)/assets", path.directory(target:targetfile()))
+    -- end)
+    set_rundir("$(projectdir)")
     
     add_files("demo/helloworld.cpp")
 
