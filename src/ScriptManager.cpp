@@ -140,6 +140,12 @@ namespace bingusengine{
             return a + (b - a) * t;
         });
 
+        // DISTANCE
+        priv->lua.set_function("Distance", [&](Position a, Position b){
+            // √((x2 – x1)² + (y2 – y1)²)
+            return std::sqrt(((b.x - a.x) * (b.x - a.x)) + ((b.y - a.y)  * (b.y - a.y)));
+        });
+
         // LOAD INIT SCRIPT AND RUN
         LoadScript("init", "assets/init.lua");
         priv->scripts.at("init")(priv->e);

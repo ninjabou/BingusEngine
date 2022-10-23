@@ -4,21 +4,21 @@
 int main( int argc, const char* argv[] ) {
     using namespace bingusengine;
 
-    std::cout << "Hello, World!\n";
-
     Engine e;
     e.Init();
     e.audio.LoadSound("yahoo", "assets/mk64_toad03.wav");
     e.graphics.LoadImage("toad", "assets/toad.png");
     e.graphics.LoadImage("rocket", "assets/rocket.png");
+    e.graphics.LoadImage("explosion", "assets/explosion.png");
+    e.graphics.LoadImage("asteroid", "assets/asteroid.png");
     e.scripts.LoadScript("controls", "assets/controls.lua");
 
-    EntityID toad1 = e.ecs.Create();
-    e.ecs.Get<Position>(toad1).x = 10;
-    e.ecs.Get<Position>(toad1).y = 10;
-    e.ecs.Get<Sprite>(toad1).z = 0.;
-    e.ecs.Get<Sprite>(toad1).scale = 20.;
-    e.ecs.Get<Sprite>(toad1).name = "toad";
+    // EntityID toad1 = e.ecs.Create();
+    // e.ecs.Get<Position>(toad1).x = 10;
+    // e.ecs.Get<Position>(toad1).y = 10;
+    // e.ecs.Get<Sprite>(toad1).z = 0.;
+    // e.ecs.Get<Sprite>(toad1).scale = 20.;
+    // e.ecs.Get<Sprite>(toad1).name = "toad";
 
     // EntityID toad2 = e.ecs.Create();
     // e.ecs.Get<Position>(toad2).x = -30;

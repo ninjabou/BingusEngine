@@ -22,6 +22,14 @@ end
 position.x = position.x + velocity.x
 position.y = position.y + velocity.y
 
+for k, v in pairs(asteroids) do
+    local d = Distance(GetPosition(entity), GetPosition(v))
+
+    if d < GetSprite(v).scale then
+        GetSprite(entity).name = "explosion"
+    end
+end  
+
 if GetKeyDown(KEYBOARD.SPACE) then
     PlaySound("yahoo")
 end
@@ -29,7 +37,3 @@ end
 if GetKeyDown(KEYBOARD.ESC) then
     Quit()
 end
-
-for k, v in pairs(asteroids) do
-    print(k, v[1], v[2], v[3])
-end  
