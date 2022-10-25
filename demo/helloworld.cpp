@@ -7,8 +7,12 @@ int main( int argc, const char* argv[] ) {
     Engine e;
     e.Init();
     e.audio.LoadSound("yahoo", "assets/mk64_toad03.wav");
+    e.audio.LoadSound("awawa", "assets/mk64_toad04.wav");
     e.graphics.LoadImage("toad", "assets/toad.png");
+    e.graphics.LoadImage("laps", "assets/laps.png");
+    e.graphics.LoadImage("tally", "assets/tally.png");
     e.graphics.LoadImage("rocket", "assets/rocket.png");
+    e.graphics.LoadImage("finishline", "assets/finishline.png");
     e.graphics.LoadImage("explosion", "assets/explosion.png");
     e.graphics.LoadImage("asteroid", "assets/asteroid.png");
     e.scripts.LoadScript("controls", "assets/controls.lua");
