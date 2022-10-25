@@ -5,7 +5,7 @@ local velocity = GetVelocity(entity)
 local sprite = GetSprite(entity)
 
 if GetKey(KEYBOARD.W) then
-    velocity.x = Lerp(velocity.x, 2 * math.sin(sprite.rotation), 0.03)
+    velocity.x = Lerp(velocity.x, 2 * -math.sin(sprite.rotation), 0.03)
     velocity.y = Lerp(velocity.y, 2 * math.cos(sprite.rotation), 0.03)
 end
 if not GetKey(KEYBOARD.W) then
@@ -13,10 +13,10 @@ if not GetKey(KEYBOARD.W) then
     velocity.y = Lerp(velocity.y, 0, 0.01)
 end
 if GetKey(KEYBOARD.A) then
-    sprite.rotation = sprite.rotation - 0.05
+    sprite.rotation = sprite.rotation + 0.05
 end
 if GetKey(KEYBOARD.D) then
-    sprite.rotation = sprite.rotation + 0.05
+    sprite.rotation = sprite.rotation - 0.05
 end
 
 position.x = position.x + velocity.x

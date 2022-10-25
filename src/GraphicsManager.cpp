@@ -195,7 +195,7 @@ namespace bingusengine {
                 uniforms.projection[0][0] /= priv->window_width;
             }
 
-            uniforms.transform = translate(mat4{1}, vec3(sprite.offset, sprite.z)) * scale(mat4{1}, vec3(sprite.scale, -sprite.scale, sprite.scale)) * rotate(mat4{1}, sprite.rotation, vec3(0, 0, 1));
+            uniforms.transform = translate(mat4{1}, vec3(sprite.offset, sprite.z)) * scale(mat4{1}, vec3(sprite.scale, -sprite.scale, sprite.scale)) * rotate(mat4{1}, -sprite.rotation, vec3(0, 0, 1));
 
             if(priv->images[sprite.name].width < priv->images[sprite.name].height) {
                 uniforms.transform = uniforms.transform * scale( mat4{1}, vec3( double(priv->images[sprite.name].width)/priv->images[sprite.name].height, 1.0, 1.0 ) );
